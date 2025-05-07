@@ -4,6 +4,8 @@
 
 ### ANSWERS:
 
+To be frank, i dont want to login/create account in reddit, but i believe in that setting page there should be a toggle switch button that when its toggled, it will automatically change account settings yes? That part is definetely NOT server side. Or if its not automatically save the changes, there should be Save button to hit API for change the account behavior. That Save button also a part that is NOT server side.
+
 ## Q2. What are the most difficult technical problems in your work experience you have encountered and how do you fix them?
 
 ### ANSWERS:
@@ -47,7 +49,7 @@ I will prioritize fast & efficient first for half year or until the MVP features
 
 ### ANSWERS:
 
-Yes, but only 1 Macbook for work purpose (i have already used this device from bootcamp in 2020 until now)
+Yes, but only 1 Macbook for work purpose (i have already used this device from bootcamp in 2020 until now and still works fine)
 
 ## Q7. What is your immediate availability to start this job?
 
