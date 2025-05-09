@@ -1,7 +1,19 @@
-import { Typography } from "@mui/material";
+"use client";
+
+import { Button, ButtonGroup, Typography } from "@mui/material";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import {
+  errorFetch,
+  loadingFetch,
+  successFetch,
+} from "./store/features/userSlice";
+
+const customErrMsg = "Custom Error";
 
 export default function Home() {
+  const { loading, errMsg, success } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   return (
     <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
       <main className='flex flex-col gap-[32px] row-start-2 items-center sm:items-start'>
@@ -13,19 +25,22 @@ export default function Home() {
           height={38}
           priority
         />
-        <ol className='list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]'>
-          <li className='mb-2 tracking-[-.01em]'>
-            Get started by editing{" "}
-            <code className='bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold'>
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className='tracking-[-.01em]'>
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <Typography>Test MUI</Typography>
+        <Typography>Test Redux:</Typography>
+        <Typography>Loading: {String(loading)}</Typography>
+        <Typography>Success: {String(success)}</Typography>
+        <Typography>Error: {errMsg || "-"}</Typography>
+        <ButtonGroup variant='contained' aria-label='Basic button group'>
+          <Button onClick={() => dispatch(loadingFetch())}>Loading</Button>
+          <Button color='success' onClick={() => dispatch(successFetch())}>
+            Success
+          </Button>
+          <Button
+            color='error'
+            onClick={() => dispatch(errorFetch(customErrMsg))}
+          >
+            Error
+          </Button>
+        </ButtonGroup>
 
         <div className='flex gap-4 items-center flex-col sm:flex-row'>
           <a
