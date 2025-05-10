@@ -23,6 +23,7 @@ import { AuthLoginBody, AuthLoginResponse } from "@/types/api/auth";
 import { toast } from "@/components/atoms/sonner";
 import { Button } from "@mui/material";
 import { InputText } from "@/components/atoms/input-text";
+import { InputPassword } from "@/components/atoms/input-password";
 
 export const LoginForm = () => {
   const form = useForm<AuthLoginFormSchema>({
@@ -95,7 +96,11 @@ export const LoginForm = () => {
               return (
                 <FormItem>
                   <FormControl>
-                    <InputText fullWidth placeholder='Password' {...field} />
+                    <InputPassword
+                      fullWidth
+                      placeholder='Password'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

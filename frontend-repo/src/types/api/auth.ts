@@ -1,5 +1,4 @@
 import { CommonResponse } from "../common/response";
-import { ApiUser } from "./user";
 
 export interface AuthLoginBody {
   email: string;
@@ -7,6 +6,5 @@ export interface AuthLoginBody {
 }
 
 export type AuthLoginResponse = {
-  user: ApiUser;
-  token: string;
+  access_token: string;
 } & CommonResponse;

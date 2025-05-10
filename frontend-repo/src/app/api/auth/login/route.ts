@@ -7,24 +7,26 @@ import { exceptionServerHandler } from "@/utils/exception/server";
 import { AuthLoginResponse } from "@/types/api/auth";
 
 export async function POST(req: Request) {
-  console.log("masuk");
   const body = await req.formData();
   const password: string = body.get("password") as string;
 
   // * Decrypting password from client-side
   if (password) body.set("password", passwordDecrypt(password));
   try {
+    const jsonBody = {
+      email: body.get("email"),
+      password: body.get("password"),
+    };
     const response = await fetchServer<AuthLoginResponse>("/auth/login").post(
-      body,
+      jsonBody,
     );
 
-    await saveSession(response.user, response.token);
+    await saveSession(response.access_token);
 
     return NextResponse.json({
       message: "Logged in successfully.",
     });
   } catch (err) {
-    console.log({ errFetchCilent: err });
     return exceptionServerHandler(err);
   }
 }
