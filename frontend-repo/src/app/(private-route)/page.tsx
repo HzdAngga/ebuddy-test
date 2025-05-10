@@ -1,19 +1,8 @@
 "use client";
 
-import { Button, ButtonGroup, Typography } from "@mui/material";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "./store/hooks";
-import {
-  errorFetch,
-  loadingFetch,
-  successFetch,
-} from "./store/features/userSlice";
-
-const customErrMsg = "Custom Error";
 
 export default function Home() {
-  const { loading, errMsg, success } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   return (
     <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
       <main className='flex flex-col gap-[32px] row-start-2 items-center sm:items-start'>
@@ -25,22 +14,6 @@ export default function Home() {
           height={38}
           priority
         />
-        <Typography>Test Redux:</Typography>
-        <Typography>Loading: {String(loading)}</Typography>
-        <Typography>Success: {String(success)}</Typography>
-        <Typography>Error: {errMsg || "-"}</Typography>
-        <ButtonGroup variant='contained' aria-label='Basic button group'>
-          <Button onClick={() => dispatch(loadingFetch())}>Loading</Button>
-          <Button color='success' onClick={() => dispatch(successFetch())}>
-            Success
-          </Button>
-          <Button
-            color='error'
-            onClick={() => dispatch(errorFetch(customErrMsg))}
-          >
-            Error
-          </Button>
-        </ButtonGroup>
 
         <div className='flex gap-4 items-center flex-col sm:flex-row'>
           <a

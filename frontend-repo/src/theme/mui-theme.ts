@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   // write custom theme here
   typography: {
-    fontFamily: "var(--font-geist-sans)",
+    fontFamily: "var(--font-geist-mono)",
   },
 });
 
