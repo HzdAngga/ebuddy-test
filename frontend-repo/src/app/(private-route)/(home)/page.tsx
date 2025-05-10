@@ -17,8 +17,10 @@ import {
   successFetch,
 } from "@/store/features/userSlice";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const isMobile = useMediaQuery("(max-width:599px)");
   const { loading, errMsg, success } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -28,7 +30,7 @@ export default function Home() {
     (key) => fetchClient(key).post(),
     {
       onSuccess: () => {
-        window.location.href = "/login";
+        router.replace("/login");
       },
       onError: (err) => exceptionServerHandler(err),
       throwOnError: false,

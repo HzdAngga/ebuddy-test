@@ -24,8 +24,10 @@ import { toast } from "@/components/atoms/sonner";
 import { Button } from "@mui/material";
 import { InputText } from "@/components/atoms/input-text";
 import { InputPassword } from "@/components/atoms/input-password";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
+  const router = useRouter();
   const form = useForm<AuthLoginFormSchema>({
     resolver: zodResolver(authLoginFormSchema),
     defaultValues: {
@@ -47,7 +49,7 @@ export const LoginForm = () => {
     },
     {
       onSuccess: () => {
-        window.location.href = "/";
+        router.replace("/");
       },
       onError: (err) => {
         exceptionClientHandler(err, () => {
