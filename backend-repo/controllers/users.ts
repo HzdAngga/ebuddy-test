@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { checking, hashing } from "../helpers/bcrypt";
 import { getToken } from "../helpers/jwt";
-import { db } from "../firebase";
+import { userModel } from "../models/users";
 
 class UserControllers {
   async login(req: Request, res: Response) {
@@ -9,30 +9,39 @@ class UserControllers {
     const email = body?.email;
     const password = body?.password;
 
-    const foundUser = { email: "john@mail.com", password: hashing("changeme") };
+    const userArr = await userModel.getByEmail(email);
+    const foundUser = userArr?.[0]?.data();
     try {
-      if (!checking(password, foundUser?.password)) {
+      if (!foundUser || !checking(password, foundUser?.password)) {
         throw { msg: "Wrong email or password" };
       }
-      const payload = {
-        email,
-      };
+      const payload = email;
       const token = getToken(payload);
       res.status(200).json({ token, msg: "Successfully login!" });
     } catch (error) {
       res.status(400).json(error);
     }
   }
-  async fetchAllUsers(req: Request, res: Response) {
+  async fetchAllUsers(_req: Request, res: Response) {
     try {
-      const snapshot = await db.collection("users").get();
-      const data = snapshot?.docs?.map((doc) => ({
+      const dbData = await userModel.getAll();
+      const data = dbData?.map((doc) => ({
         id: doc?.id,
         ...doc?.data(),
       }));
       res
         .status(200)
         .json({ msg: "Successfully fetch all users!", users: data });
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  }
+  async updateUser(req: Request, res: Response) {
+    try {
+      const id = req?.params?.id;
+      const updateData = req?.body;
+      await userModel.updateById(id, updateData);
+      res.status(200).json({ msg: "Successfully update user!" });
     } catch (error) {
       res.status(400).json(error);
     }

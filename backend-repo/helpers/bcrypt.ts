@@ -8,3 +8,5 @@ export function hashing(password: string) {
 export function checking(password: string, hash: string) {
   return bcrypt.compareSync(password, hash);
 }
+
+hashing("changeme");
