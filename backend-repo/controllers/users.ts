@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { checking, hashing } from "../helpers/bcrypt";
 import { getToken } from "../helpers/jwt";
 import { userModel } from "../models/users";
@@ -44,6 +44,16 @@ class UserControllers {
       res.status(200).json({ msg: "Successfully update user!" });
     } catch (error) {
       res.status(400).json(error);
+    }
+  }
+  async seed(_req: Request, res: Response, next: NextFunction) {
+    try {
+      await userModel.seed();
+      res
+        .status(200)
+        .json({ msg: "Successfully seeding data in firebase db!" });
+    } catch (error) {
+      next(error);
     }
   }
 }
