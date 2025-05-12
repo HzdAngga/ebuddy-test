@@ -8,6 +8,6 @@ router.post("/login", userControllers.login);
 router.get("/seed", userControllers.seed);
 router.use(authentication);
 router.get("/fetch-user-data", userControllers.fetchAllUsers);
-router.put("/update-user-data/:id", userControllers.updateUser);
+router.put("/update-user-data", userControllers.updateUser);
 
 export { router as usersRouter };

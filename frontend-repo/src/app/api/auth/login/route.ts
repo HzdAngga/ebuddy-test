@@ -17,11 +17,11 @@ export async function POST(req: Request) {
       email: body.get("email"),
       password: body.get("password"),
     };
-    const response = await fetchServer<AuthLoginResponse>("/auth/login").post(
+    const response = await fetchServer<AuthLoginResponse>("/users/login").post(
       jsonBody,
     );
 
-    await saveSession(response.access_token);
+    await saveSession(response.token);
 
     return NextResponse.json({
       message: "Logged in successfully.",

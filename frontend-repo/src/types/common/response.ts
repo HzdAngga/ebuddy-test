@@ -1,5 +1,5 @@
 export type CommonResponse = {
-  message: string;
+  msg: string;
 };
 
 export type CommonPaginatedResponse = {

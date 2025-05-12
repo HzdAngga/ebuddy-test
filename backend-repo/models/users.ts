@@ -47,9 +47,10 @@ class UserModel {
       .get();
     return snapshot?.docs;
   }
-  async updateById(id: string, updateData: Record<string, unknown>) {
-    const docRef = db.collection("users").doc(id);
-    await docRef.update(updateData);
+  async updateById(payload: Record<string, unknown>) {
+    const { id, ...payloadData } = payload;
+    const docRef = db.collection("users").doc(String(id));
+    await docRef.update({ ...payloadData });
   }
   async seed() {
     try {

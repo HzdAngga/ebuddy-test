@@ -6,7 +6,7 @@ import { fetchClient } from "@/libs/fetch/client";
 import { cn } from "@/libs/shadcn/utils";
 import { exceptionServerHandler } from "@/utils/exception/server";
 import { Alert, Button, Grid, Typography, useMediaQuery } from "@mui/material";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import useSWRMutation from "swr/mutation";
 import { headCells } from "./_consts/table-head";
 import { UsersApiEndpoints } from "@/constants/api-endpoints/users";
@@ -18,12 +18,16 @@ import {
 } from "@/store/features/userSlice";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
+import { ApiUser, GetAllUsersReponse } from "@/types/api/user";
+import { EditFormModal } from "./_components/EditFormModal";
 
 export default function Home() {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width:599px)");
   const { loading, errMsg, success } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+
+  const [editModal, setEditModal] = useState({ open: false, data: {} });
 
   const { trigger: triggerLogout, isMutating: loadingLogout } = useSWRMutation(
     AuthApiEndpoints.LOGOUT,
@@ -56,12 +60,32 @@ export default function Home() {
     dispatch(loadingFetch());
     triggerFetchUsers();
   }, [triggerFetchUsers, dispatch]);
-  const bodyCells = useMemo(
-    () =>
-      (data as Record<string, never[]>)?.data?.map((el = {}) => ({ ...el })) ||
-      [],
-    [data],
-  );
+  const bodyCells = useMemo(() => {
+    const handleOnClickEdit = (el: ApiUser) => {
+      setEditModal({ open: true, data: el });
+    };
+    return (
+      (((data as Record<string, unknown>)?.data || {}) as GetAllUsersReponse)
+        ?.users || []
+    )?.map((el) => ({
+      ...el,
+      actions: (
+        <Button onClick={() => handleOnClickEdit(el)} variant='contained'>
+          Edit
+        </Button>
+      ),
+    }));
+  }, [data]) as unknown as Record<string, unknown>[];
+
+  const handleCloseEditModal = useCallback(() => {
+    setEditModal({ open: false, data: {} });
+  }, []);
+
+  const handleOnSuccessUpdate = useCallback(() => {
+    dispatch(loadingFetch());
+    triggerFetchUsers();
+    handleCloseEditModal();
+  }, [dispatch, handleCloseEditModal, triggerFetchUsers]);
 
   return (
     <div className='bg-gray-700 h-dvh'>
@@ -103,7 +127,7 @@ export default function Home() {
         </Grid>
 
         {success && <Alert severity='success'>Success Fetch!</Alert>}
-
+        {loading && <Alert severity='warning'>Fetching Data</Alert>}
         {Boolean(errMsg) && <Alert severity='error'>Error Fetch!</Alert>}
 
         <CTTable
@@ -114,6 +138,14 @@ export default function Home() {
           total={0}
         />
       </main>
+      {editModal.open && (
+        <EditFormModal
+          data={editModal?.data}
+          open={editModal?.open}
+          onClose={handleCloseEditModal}
+          onSuccessUpdate={handleOnSuccessUpdate}
+        />
+      )}
     </div>
   );
 }

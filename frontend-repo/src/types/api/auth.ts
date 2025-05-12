@@ -6,5 +6,5 @@ export interface AuthLoginBody {
 }
 
 export type AuthLoginResponse = {
-  access_token: string;
+  token: string;
 } & CommonResponse;
