@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { checking, hashing } from "../helpers/bcrypt";
+import { checking } from "../helpers/bcrypt";
 import { getToken } from "../helpers/jwt";
 import { userModel } from "../models/users";
 
