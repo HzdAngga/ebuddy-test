@@ -20,7 +20,7 @@
 
 ### 1. Start Dev
 
-- run `npm start` or `npm run start`
+- run `npm run dev`
 - default port is 8000
 
 ### 2. Test API

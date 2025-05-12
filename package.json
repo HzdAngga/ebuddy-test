@@ -1,0 +1,33 @@
+{
+  "name": "ebuddy-test",
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspace": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HzdAngga/ebuddy-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HzdAngga/ebuddy-test/issues"
+  },
+  "homepage": "https://github.com/HzdAngga/ebuddy-test#readme",
+  "devDependencies": {
+    "turbo": "^2.5.3"
+  }
+}
