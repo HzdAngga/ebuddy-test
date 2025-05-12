@@ -8,6 +8,8 @@ export interface ApiUser {
   recentlyActive: string;
   password: string;
   name: string;
+  rankingScore: string;
+  highestRents?: number;
 }
 
 export type GetAllUsersReponse = {

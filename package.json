@@ -29,5 +29,8 @@
   "homepage": "https://github.com/HzdAngga/ebuddy-test#readme",
   "devDependencies": {
     "turbo": "^2.5.3"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13"
   }
 }

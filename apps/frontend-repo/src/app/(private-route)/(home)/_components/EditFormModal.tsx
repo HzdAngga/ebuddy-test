@@ -30,6 +30,7 @@ import { UsersApiEndpoints } from "@/constants/api-endpoints/users";
 import { CommonResponse } from "@/types/common/response";
 import { exceptionClientHandler } from "@/utils/exception/client";
 import { toast } from "@/components/atoms/sonner";
+import { calculateRankingUser } from "../../../../../../../packages/utils/calculation";
 
 type ModalPropsWithoutChildren = Omit<ModalProps, "children">;
 type EditFormModalProps = {
@@ -97,12 +98,21 @@ export const EditFormModal: React.FC<EditFormModalProps> = ({
       const name = values?.name;
       const totalAverageWeightRatings = values?.totalAverageWeightRatings;
       const numberOfRents = values?.numberOfRents;
+      const isRentFormValuesHighest =
+        Number(values?.numberOfRents) > Number(data?.highestRents || 0);
 
       const payload = {
         id: String(data?.id || ""),
         name,
         totalAverageWeightRatings,
         numberOfRents,
+        rankingScore: calculateRankingUser({
+          totalAverageWeightRatings: Number(totalAverageWeightRatings),
+          numberOfRents: Number(numberOfRents),
+          recentlyActive: String(data?.recentlyActive),
+          highestRents: Number(data?.highestRents || 0),
+        }),
+        ...(isRentFormValuesHighest ? { highestRents: numberOfRents } : {}),
       };
 
       trigger(payload);

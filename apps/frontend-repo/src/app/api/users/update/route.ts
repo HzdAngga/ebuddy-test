@@ -14,6 +14,7 @@ export async function PUT(req: Request) {
       name: body.get("name"),
       totalAverageWeightRatings: body.get("totalAverageWeightRatings"),
       numberOfRents: body.get("numberOfRents"),
+      rankingScore: body.get("rankingScore"),
     };
 
     const response = await fetchServer<GetAllUsersReponse>(

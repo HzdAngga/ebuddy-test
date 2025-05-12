@@ -25,3 +25,8 @@
 
 - run `npm run dev`
 - default port is 3000
+
+## 2. Credential For Login App
+
+- email: `usera@mail.com`
+- password: `passwordusera`

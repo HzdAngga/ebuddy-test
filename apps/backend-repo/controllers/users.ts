@@ -39,7 +39,15 @@ class UserControllers {
   async updateUser(req: Request, res: Response) {
     try {
       const updateData = req?.body;
+
+      if (updateData?.highestRents !== undefined) {
+        console.log("trigger");
+        // update all highestRent in db and recalculating rankingScore
+        await userModel.recalculateDocs(updateData?.highestRents);
+      }
+
       await userModel.updateById(updateData);
+
       res.status(200).json({ msg: "Successfully update user!" });
     } catch (error) {
       res.status(400).json(error);
@@ -47,6 +55,7 @@ class UserControllers {
   }
   async seed(_req: Request, res: Response, next: NextFunction) {
     try {
+      console.log("hai lagi2");
       await userModel.seed();
       res
         .status(200)
