@@ -12,6 +12,10 @@
 - run `touch .env`
 - copy content inside `env.example` to `.env`
 
+### Firebase Creds
+
+- copy paste creds firebase from `env.example` to `firebase/serviceAccountKey.json`
+
 ### 3. Test API
 
 - Download _Postman_ app and try the endpoints there
