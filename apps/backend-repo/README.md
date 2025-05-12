@@ -12,17 +12,6 @@
 - run `touch .env`
 - copy content inside `env.example` to `.env`
 
-### 3. Install modules
-
-- run `npm install`
-
-## Run Repo Locally
-
-### 1. Start Dev
-
-- run `npm run dev`
-- default port is 8000
-
-### 2. Test API
+### 3. Test API
 
 - Download _Postman_ app and try the endpoints there
