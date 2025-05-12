@@ -11,14 +11,3 @@
 
 - run `touch .env`
 - copy content inside `env.example` to `.env`
-
-### 3. Install modules
-
-- run `npm install`
-
-## Run Repo Locally
-
-### 1. Start Dev
-
-- run `npm run dev`
-- default port is 3000
